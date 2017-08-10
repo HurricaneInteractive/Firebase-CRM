@@ -1,5 +1,13 @@
 # React setup with webpack config file
 
+### Getting Started
+
+* Clone this repo
+* Run `npm` or `yarn` to install all node modules.
+* Run `yarn start` to compile code and start a dev server
+
+* * *
+
 ### File Structure
 
 ```
@@ -18,14 +26,6 @@
         |-- App.js
     |-- index.html
 ```
-
-* * *
-
-### Getting Started
-
-* Clone this repo
-* Run `npm` or `yarn` to install all node modules.
-* Run `yarn start` to compile code and start a dev server
 
 * * *
 
