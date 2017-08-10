@@ -31,11 +31,11 @@
 
 ### Available Commands
 
-`yarn build-css` will compile all the scss into a .css file. \n
-`yarn watch-css` will watch for any scss changes and re-compile the .css file. \n
-`yarn dev` will start up the webpack dev server on <http://localhost:8080>. \n
-`yarn start` will run webpack dev server & watch for scss changes. \n
-`yarn prod` build the project for production. Uses Uglifyjs to minify the js file. \n
+* `yarn build-css` will compile all the scss into a .css file.
+* `yarn watch-css` will watch for any scss changes and re-compile the .css file.
+* `yarn dev` will start up the webpack dev server on <http://localhost:8080>.
+* `yarn start` will run webpack dev server & watch for scss changes.
+* `yarn prod` build the project for production. Uses Uglifyjs to minify the js file.
 
 * * *
 
