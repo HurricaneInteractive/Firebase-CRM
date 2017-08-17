@@ -29,6 +29,10 @@ module.exports = {
         path: __dirname + '/src/dist',
         filename: 'app.min.js'
     },
+    devServer: {
+        port: 8080,
+        historyApiFallback: true
+    },
     plugins: debug ? [] : [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new UglifyJSPlugin({

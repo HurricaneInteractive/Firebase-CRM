@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { BrowserRouter as Router, Route, HashRouter, Redirect, Switch} from 'react-router-dom';
+import { 
+    BrowserRouter as Router, 
+    Route, 
+    HashRouter, 
+    Redirect, 
+    Switch
+} from 'react-router-dom';
 
 import firebase from './Firebase/initialize';
 import { isAuthed, auth } from './Firebase/helpers';
@@ -52,7 +58,7 @@ class App extends Component {
         } else {
             loggedIn = false;
         }
-        
+
         const PublicRoutes = () => (
             <Switch>
                 <Route exact path="/" component={Home} />
@@ -83,24 +89,6 @@ class App extends Component {
                                     <PrivateRoutes />
                                 )
                             }
-                            {/*    
-                            <Route exact path="/" render={() => (
-                                    loggedIn ? (
-                                        <Redirect to="/dashboard" />
-                                    ) : (
-                                        <Home />
-                                    )
-                                )} />
-                                <Route exact path="/login" render={() => ( <Login login={this.logInUser.bind(this)} /> ) } />
-                                <Route exact path="/register" component={Register} />
-                                <Route path="/dashboard" render={() => (
-                                    loggedIn ? (
-                                        <Dashboard />
-                                    ) : (
-                                        <Redirect to="/login" />
-                                    )
-                                )} />
-                            */ }
                         </div>
                     </main>
                 </div>

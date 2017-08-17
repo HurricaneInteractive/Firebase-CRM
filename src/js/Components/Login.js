@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import firebase from '../Firebase/initialize';
 import { auth } from '../Firebase/helpers';
-import { Redirect } from 'react-router-dom';
 
 import { loginUser } from '../Redux/Actions/userActions';
 
