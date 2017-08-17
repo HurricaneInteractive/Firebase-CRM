@@ -7,7 +7,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
     context: path.join(__dirname, 'src'),
     devtool: debug ? "inline-sourcemap" : false,
-    entry: './js/App.js',
+    entry: './js/Client.js',
     module: {
         loaders: [
             {
