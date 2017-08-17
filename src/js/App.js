@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { BrowserRouter as Router, Route, HashRouter, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, HashRouter, Redirect, Switch} from 'react-router-dom';
 
 import firebase from './Firebase/initialize';
 import { isAuthed, auth } from './Firebase/helpers';
@@ -36,6 +36,8 @@ class App extends Component {
 
     render() {
         const _this = this;
+        let loggedIn = false;
+        
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 _this.setCurrentUser(user);
@@ -45,12 +47,28 @@ class App extends Component {
             }
         });
 
-        let loggedIn = false;
-        if (this.props.user === null) {
-            loggedIn = false;
-        } else {
+        if (this.props.user !== null) {
             loggedIn = true;
+        } else {
+            loggedIn = false;
         }
+        
+        const PublicRoutes = () => (
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/login" render={() => ( <Login login={this.logInUser.bind(this)} /> ) } />
+                <Route path="/register" component={Register} />
+                <Redirect from="/dashboard" to="/login" />
+                <Redirect to="/" />
+            </Switch>
+        )
+
+        const PrivateRoutes = () => (
+            <Switch>
+                <Route path="/dashboard" component={Dashboard} />
+                <Redirect to="/dashboard" />
+            </Switch>
+        )
 
         return (
             <Router>
@@ -58,16 +76,31 @@ class App extends Component {
                     <Navbar />
                     <main>
                         <div className="container-fluid">
-                            <Route exact path="/" render={() => (
-                                loggedIn ? (
-                                    <Redirect to="/dashboard" />
+                            {
+                                loggedIn === false ? (
+                                    <PublicRoutes />
                                 ) : (
-                                    <Home />
+                                    <PrivateRoutes />
                                 )
-                            )} />
-                            <Route exact path="/login" render={() => ( <Login login={this.logInUser.bind(this)} /> ) } />
-                            <Route exact path="/register" component={Register} />
-                            <Route path="/dashboard" component={Dashboard} />
+                            }
+                            {/*    
+                            <Route exact path="/" render={() => (
+                                    loggedIn ? (
+                                        <Redirect to="/dashboard" />
+                                    ) : (
+                                        <Home />
+                                    )
+                                )} />
+                                <Route exact path="/login" render={() => ( <Login login={this.logInUser.bind(this)} /> ) } />
+                                <Route exact path="/register" component={Register} />
+                                <Route path="/dashboard" render={() => (
+                                    loggedIn ? (
+                                        <Dashboard />
+                                    ) : (
+                                        <Redirect to="/login" />
+                                    )
+                                )} />
+                            */ }
                         </div>
                     </main>
                 </div>

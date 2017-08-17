@@ -44,7 +44,10 @@ class Navbar extends Component {
                     <div className="ml-auto my-2 my-lg-0 from-inline">
                         {
                             this.state.authenticated === true ? (
-                                <Link onClick={this.logUserOut} to="/signOut" className="btn btn-link">Sign out</Link>
+                                <div>
+                                    <Link className="btn btn-outline-primary" to="/dashboard">Dashboard</Link>
+                                    <Link onClick={this.logUserOut} to="/signOut" className="btn btn-link">Sign out</Link>
+                                </div>
                             ) : (
                                 <div>
                                     <Link className="btn btn-outline-primary" to="/login">Login</Link>
