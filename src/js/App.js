@@ -19,6 +19,12 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 
 import Dashboard from './Components/Users/Dashboard';
+import Profile from './Components/Users/Profile';
+
+import { 
+    Loading,
+    UserSidebar
+} from './UI';
 
 import { 
     loginUser, 
@@ -29,6 +35,32 @@ import {
 class App extends Component {
     constructor() {
         super();
+        
+        this.state = {
+            userAuthed: false,
+            checkingAuth: true
+        }
+
+        this.setCurrentUser = this.setCurrentUser.bind(this);
+    }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({
+                    userAuthed: true,
+                    checkingAuth: false
+                });
+                //TODO Try to reduce url jumping
+            }
+            else {
+                this.setState({
+                    userAuthed: false,
+                    checkingAuth: false
+                });
+                //TODO Try to reduce url jumping
+            }
+        });
     }
 
     logInUser(email, password) {
@@ -42,22 +74,22 @@ class App extends Component {
 
     render() {
         const _this = this;
-        let loggedIn = false;
+        // let loggedIn = false;
         
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                _this.setCurrentUser(user);
-            }
-            else {
-                _this.setCurrentUser(user);
-            }
-        });
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //     if (user) {
+        //         _this.setCurrentUser(user);
+        //     }
+        //     else {
+        //         _this.setCurrentUser(user);
+        //     }
+        // });
 
-        if (this.props.user !== null) {
-            loggedIn = true;
-        } else {
-            loggedIn = false;
-        }
+        // if (this.props.user !== null) {
+        //     loggedIn = true;
+        // } else {
+        //     loggedIn = false;
+        // }
 
         const PublicRoutes = () => (
             <Switch>
@@ -65,40 +97,60 @@ class App extends Component {
                 <Route path="/login" render={() => ( <Login login={this.logInUser.bind(this)} /> ) } />
                 <Route path="/register" component={Register} />
                 <Redirect from="/dashboard" to="/login" />
-                <Redirect to="/" />
+                <Redirect from="/profile" to="/login" />
             </Switch>
         )
 
         const PrivateRoutes = () => (
             <Switch>
-                <Route path="/dashboard" component={Dashboard} />
-                <Redirect to="/dashboard" />
+                <Route path="/dashboard" render={() => (
+                    <Dashboard 
+                        currentUser={this.props.user}
+                        getCurrentUser={this.setCurrentUser}
+                    />
+                )} />
+                <Route path="/profile" render={() => ( <Profile /> )} />
+                <Redirect from="/login" to="/dashboard" />
+                <Redirect from="/register" to="/dashboard" />
             </Switch>
         )
 
-        return (
-            <Router>
-                <div>
-                    <Navbar />
-                    <main>
-                        <div className="container-fluid">
-                            {
-                                loggedIn === false ? (
-                                    <PublicRoutes />
-                                ) : (
-                                    <PrivateRoutes />
-                                )
-                            }
-                        </div>
-                    </main>
-                </div>
-            </Router>
-        )
+        if (this.state.checkingAuth === false) {
+            return (
+                <Router>
+                    <div className={ this.state.userAuthed ? ( 'user' ) : ( 'public' ) }>
+                        <Navbar />
+                        <main>
+                            <div className="container-fluid">
+                                {
+                                    this.state.userAuthed === false ? (
+                                        <PublicRoutes />
+                                    ) : (
+                                        <div className="row">
+                                            <aside>
+                                                <UserSidebar />
+                                            </aside>
+                                            <div className="user-content">
+                                                <PrivateRoutes />
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        </main>
+                    </div>
+                </Router>
+            )
+        }
+        else {
+            return (
+                <Loading />
+            )
+        }
     }
 }
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         user: state.user.user
     }

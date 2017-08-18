@@ -1,7 +1,52 @@
-main {
+.public main {
   padding-top: 40px; }
 
 .heading-pullout {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
   margin-bottom: 20px; }
+
+#site-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #007bff;
+  width: 100%;
+  height: 100%; }
+  #site-loading h3 {
+    text-align: center;
+    line-height: 100vh;
+    color: white; }
+    #site-loading h3 svg {
+      max-width: 50px;
+      margin-left: 15px;
+      vertical-align: middle; }
+
+.user main aside {
+  width: 250px;
+  background: #0747A6;
+  height: calc(100vh - 56px);
+  position: fixed;
+  top: 56px; }
+  .user main aside .sidebar-nav {
+    margin: 0;
+    padding: 25px 0 0 0; }
+    .user main aside .sidebar-nav li {
+      list-style: none;
+      margin: 0 5px 0 10px; }
+      .user main aside .sidebar-nav li a {
+        padding: 0 15px;
+        line-height: 40px;
+        display: block;
+        color: white; }
+        .user main aside .sidebar-nav li a:hover {
+          text-decoration: none; }
+        .user main aside .sidebar-nav li a.selected {
+          background: #053275;
+          border-radius: 5px; }
+
+.user main .user-content {
+  width: calc(100% - 250px);
+  margin-left: 250px;
+  padding: 50px; }

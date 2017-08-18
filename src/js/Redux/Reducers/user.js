@@ -28,6 +28,10 @@ export default function reducer(state=defaultState, action) {
             return {...state, user: user}
             break;
         }
+        case 'GET_USER_INFORMATION': {
+            const uid = action.payload.uid;
+            
+        }
     }
     
     return state;

@@ -23,3 +23,12 @@ export function changeUserState(user) {
         }
     }
 }
+
+export function getUserInformation(uid) {
+    return {
+        type: 'GET_USER_INFORMATION',
+        payload: {
+            uid: uid
+        }
+    }
+}
