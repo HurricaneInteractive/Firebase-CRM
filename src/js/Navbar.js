@@ -45,8 +45,8 @@ class Navbar extends Component {
                         {
                             this.state.authenticated === true ? (
                                 <div>
-                                    <Link className="btn btn-outline-primary" to="/dashboard">Dashboard</Link>
-                                    <Link className="btn btn-link" to="/profile">Profile</Link>
+                                    {/* <Link className="btn btn-outline-primary" to="/dashboard">Dashboard</Link> */}
+                                    { /*<Link className="btn btn-link" to="/profile">Profile</Link> */ }
                                     <Link onClick={this.logUserOut} to="/signOut" className="btn btn-link">Sign out</Link>
                                 </div>
                             ) : (

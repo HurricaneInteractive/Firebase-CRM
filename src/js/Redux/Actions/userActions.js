@@ -32,3 +32,14 @@ export function getUserInformation(uid) {
         }
     }
 }
+
+export function updateUserMetadata(uid, name, value) {
+    return {
+        type: 'UPDATE_USER_METADATA',
+        payload: {
+            uid: uid,
+            name: name,
+            value: value
+        }
+    }
+}

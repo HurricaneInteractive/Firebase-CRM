@@ -34,19 +34,65 @@
     padding: 25px 0 0 0; }
     .user main aside .sidebar-nav li {
       list-style: none;
-      margin: 0 5px 0 10px; }
+      margin: 0 5px 5px 10px;
+      position: relative; }
+      .user main aside .sidebar-nav li span {
+        color: white;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%); }
       .user main aside .sidebar-nav li a {
-        padding: 0 15px;
-        line-height: 40px;
+        padding: 0 15px 0 36px;
+        line-height: 45px;
         display: block;
-        color: white; }
-        .user main aside .sidebar-nav li a:hover {
-          text-decoration: none; }
-        .user main aside .sidebar-nav li a.selected {
-          background: #053275;
-          border-radius: 5px; }
+        color: white;
+        transition: background 250ms ease-in-out;
+        border-radius: 5px; }
+        .user main aside .sidebar-nav li a:hover, .user main aside .sidebar-nav li a.selected {
+          text-decoration: none;
+          background: #053275; }
 
 .user main .user-content {
   width: calc(100% - 250px);
   margin-left: 250px;
   padding: 50px; }
+  .user main .user-content .user-inner > h2 {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee; }
+
+.card-header span {
+  float: right;
+  line-height: 24px;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 14px; }
+  .card-header span.oi-x {
+    color: #e54c63; }
+
+.card.company-info .card-background {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 175px;
+  background-color: rgba(0, 0, 0, 0.125); }
+
+.card.employees {
+  margin-top: 25px; }
+
+.user .company-infomation .input-group:not(:last-of-type) {
+  margin-bottom: 20px; }
+
+.user .company-infomation .input-group .input-group-addon {
+  min-width: 45px; }
+  .user .company-infomation .input-group .input-group-addon .oi {
+    font-size: 15px;
+    display: block;
+    margin: 0 auto; }
+
+.user .company-infomation .input-group input {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: #fff; }
+  .user .company-infomation .input-group input[readonly] {
+    color: #212529; }

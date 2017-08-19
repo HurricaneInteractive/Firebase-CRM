@@ -46,10 +46,20 @@ export const UserSidebar = (props) => {
     return (
         <ul className="sidebar-nav">
             <li>
+                <span class="oi oi-dashboard"></span>
                 <NavLink to="/dashboard" activeClassName="selected">Dashboard</NavLink>
             </li>
             <li>
+                <span class="oi oi-person"></span>
                 <NavLink to="/profile" activeClassName="selected">Profile</NavLink>
+            </li>
+            <li>
+                <span class="oi oi-spreadsheet"></span>
+                <a href="#">Customers</a>
+            </li>
+            <li>
+                <span class="oi oi-chat"></span>
+                <a href="#">Messages</a>
             </li>
         </ul>
     )

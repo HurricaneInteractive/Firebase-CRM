@@ -29,7 +29,8 @@ import {
 import { 
     loginUser, 
     checkAuthStatus,
-    changeUserState 
+    changeUserState,
+    updateUserMetadata
 } from './Redux/Actions/userActions';
 
 class App extends Component {
@@ -42,6 +43,7 @@ class App extends Component {
         }
 
         this.setCurrentUser = this.setCurrentUser.bind(this);
+        this.updateUserMetadataFunc = this.updateUserMetadataFunc.bind(this);
     }
 
     componentDidMount() {
@@ -70,6 +72,10 @@ class App extends Component {
 
     setCurrentUser(user) {
         this.props.dispatch(changeUserState(user));
+    }
+
+    updateUserMetadataFunc(uid, name, value) {
+        this.props.dispatch(updateUserMetadata(uid, name, value));
     }
 
     render() {
@@ -109,7 +115,13 @@ class App extends Component {
                         getCurrentUser={this.setCurrentUser}
                     />
                 )} />
-                <Route path="/profile" render={() => ( <Profile /> )} />
+                <Route path="/profile" render={() => ( 
+                    <Profile
+                        currentUser={this.props.user}
+                        getCurrentUser={this.setCurrentUser}
+                        updateUserMetadata={this.updateUserMetadataFunc}
+                    /> 
+                )} />
                 <Redirect from="/login" to="/dashboard" />
                 <Redirect from="/register" to="/dashboard" />
             </Switch>

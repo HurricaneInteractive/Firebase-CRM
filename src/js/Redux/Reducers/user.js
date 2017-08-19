@@ -9,10 +9,8 @@ export default function reducer(state=defaultState, action) {
 
     switch(action.type) {
         case 'LOGIN_USER': {
-            console.log('logging in...');
             const { email, password } = action.payload;
             firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-                console.log(firebase.auth().currentUser);
                 return state;
             });
             break;
@@ -30,7 +28,15 @@ export default function reducer(state=defaultState, action) {
         }
         case 'GET_USER_INFORMATION': {
             const uid = action.payload.uid;
+            return state;
+            break;
+        }
+        case 'UPDATE_USER_METADATA': {
+            const { uid, name, value } = action.payload;
             
+
+            return state;
+            break;
         }
     }
     
