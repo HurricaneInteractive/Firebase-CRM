@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import firebase from '../../Firebase/initialize';
 
+import { Loading } from '../../UI';
+
 class Dashboard extends Component {
 
     constructor() {
@@ -12,12 +14,15 @@ class Dashboard extends Component {
         }
     }
 
+    // If there is no current user
+    // Fetch from database
     componentDidMount() {
         if (this.props.currentUser === null) {
             firebase.auth().onAuthStateChanged((user) => {
                 this.props.getCurrentUser(user);
             })
         }
+        // Otherwise set user state to returned value from db
         else {
             const uid = this.props.currentUser.uid;
             const userRef = firebase.database().ref().child('users/' + uid);
@@ -25,23 +30,22 @@ class Dashboard extends Component {
         }
     }
 
+    // Stop listening for database changes
     componentWillUnmount() {
         firebase.database().ref().off();
     }
 
+    // Render dashboard page
     render() {
         const user = this.state.user;
-        if (user !== '' && user !== null) { 
-            return (
-                <h2>Welcome {user.metadata.company_name}</h2>
-            )
-        }
-        else {
-            return (
-                <h2>Loading...</h2>
-            )
+        
+        if (user === '' || user === null) {
+            return <Loading />
         }
         
+        return (
+            <h2>Welcome {user.metadata.company_name}</h2>
+        )
     }
 }
 

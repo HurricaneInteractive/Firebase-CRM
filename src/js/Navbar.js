@@ -5,12 +5,16 @@ import { auth, signOut } from './Firebase/helpers';
 class Navbar extends Component {
     constructor() {
         super();
+        // Initial state
         this.state = {
             authenticated: false
         }
+        // Bind events
         this.logUserOut = this.logUserOut.bind(this);
     }
 
+    // On mount check auth status
+    // set authenticated status
     componentWillMount() {
         let _this = this;
         auth().onAuthStateChanged(function(user) {
@@ -27,11 +31,14 @@ class Navbar extends Component {
         });
     }
 
+    // Sign a user out
     logUserOut(e) {
         e.preventDefault();
         signOut();
     }
 
+    // Display website navigation
+    // Change links based on auth status
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">

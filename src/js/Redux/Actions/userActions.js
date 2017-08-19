@@ -1,5 +1,9 @@
+// Login User
+/*
+*   email:      User Email      (string)
+*   password:   User Password   (string)
+*/
 export function loginUser(email, password) {
-    console.log('login action called');
     return {
         type: 'LOGIN_USER',
         payload: {
@@ -9,12 +13,17 @@ export function loginUser(email, password) {
     }
 }
 
+// Check the Auth Status
 export function checkAuthStatus() {
     return {
         type: 'CHECK_AUTH_STATUS'
     }
 }
 
+// Change the store user state
+/*
+*   user: user object given by Firebase (object)
+*/
 export function changeUserState(user) {
     return {
         type: 'CHANGE_USER_STATE',
@@ -33,12 +42,18 @@ export function getUserInformation(uid) {
     }
 }
 
-export function updateUserMetadata(uid, name, value) {
+// Update User Metadata
+/*
+*   uid:    user uid            (string)
+*   key:   metadata key        (string)
+*   value:  new metadata value  (string | number)
+*/
+export function updateUserMetadata(uid, key, value) {
     return {
         type: 'UPDATE_USER_METADATA',
         payload: {
             uid: uid,
-            name: name,
+            key: key,
             value: value
         }
     }

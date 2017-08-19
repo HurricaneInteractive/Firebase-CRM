@@ -37,15 +37,18 @@ class App extends Component {
     constructor() {
         super();
         
+        // Initial state
         this.state = {
             userAuthed: false,
             checkingAuth: true
         }
 
+        // bind events
         this.setCurrentUser = this.setCurrentUser.bind(this);
         this.updateUserMetadataFunc = this.updateUserMetadataFunc.bind(this);
     }
 
+    // Sets the state of the app based on auth status
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -53,50 +56,37 @@ class App extends Component {
                     userAuthed: true,
                     checkingAuth: false
                 });
-                //TODO Try to reduce url jumping
             }
             else {
                 this.setState({
                     userAuthed: false,
                     checkingAuth: false
                 });
-                //TODO Try to reduce url jumping
             }
         });
     }
 
+    // Log a user in
     logInUser(email, password) {
         this.props.dispatch(loginUser(email, password));
         this.props.dispatch(checkAuthStatus());
     }
 
+    // Sets the current user
     setCurrentUser(user) {
         this.props.dispatch(changeUserState(user));
     }
 
-    updateUserMetadataFunc(uid, name, value) {
-        this.props.dispatch(updateUserMetadata(uid, name, value));
+    // Updates the users metadata
+    updateUserMetadataFunc(uid, key, value) {
+        this.props.dispatch(updateUserMetadata(uid, key, value));
     }
 
+    // render
     render() {
         const _this = this;
-        // let loggedIn = false;
-        
-        // firebase.auth().onAuthStateChanged(function(user) {
-        //     if (user) {
-        //         _this.setCurrentUser(user);
-        //     }
-        //     else {
-        //         _this.setCurrentUser(user);
-        //     }
-        // });
 
-        // if (this.props.user !== null) {
-        //     loggedIn = true;
-        // } else {
-        //     loggedIn = false;
-        // }
-
+        // Define the websites public routes
         const PublicRoutes = () => (
             <Switch>
                 <Route exact path="/" component={Home} />
@@ -107,6 +97,7 @@ class App extends Component {
             </Switch>
         )
 
+        // Define the websites private routes
         const PrivateRoutes = () => (
             <Switch>
                 <Route path="/dashboard" render={() => (
@@ -127,6 +118,9 @@ class App extends Component {
             </Switch>
         )
 
+        // if authentication checking isn't happening
+        // Check auth status
+        // Set routes based on auth status
         if (this.state.checkingAuth === false) {
             return (
                 <Router>
@@ -154,6 +148,8 @@ class App extends Component {
                 </Router>
             )
         }
+        // If auth checking is happening
+        // Show loading screen
         else {
             return (
                 <Loading />
@@ -162,12 +158,14 @@ class App extends Component {
     }
 }
 
+// Map the user state to Component props
 const mapStateToProps = state => {
     return {
         user: state.user.user
     }
 }
 
+// Reduc connect method
 const AppConnect = connect(
     mapStateToProps
 )(App);

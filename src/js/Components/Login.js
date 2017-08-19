@@ -10,36 +10,45 @@ class Login extends Component {
     constructor() {
         super();
 
+        // Initial state
         this.state = {
             email: '',
             password: ''
         };
 
+        // Bind events
         this.updateStateOnInput = this.updateStateOnInput.bind(this);
         this.loginInUser = this.loginInUser.bind(this);
     }
 
+    // On Change Method to change state
     updateStateOnInput(e) {
         this.setState({
            [e.target.name]: e.target.value 
         });
     }
 
+    // Form Submit method to log a user into the website
     loginInUser(e) {
         e.preventDefault();
 
+        // Get state values
         let email = this.state.email,
             password = this.state.password,
             _this = this;
 
+        // Set authentication persistence
         auth().setPersistence(auth.Auth.Persistence.SESSION).then(function() {
+            // Run login function in <App />
             _this.props.login(email, password);
         })
         .catch(function(error) {
+            // Catch and alert any errors
             alert(error.message);
         });
     }
 
+    // Display Login form
     render() {
         return (
             <div className="row justify-content-md-center">

@@ -1,22 +1,44 @@
 import React, { Component } from 'react';
 import firebase from '../../../Firebase/initialize';
 
+// PROPS
+/*
+*   information                         : Company information       (object)
+*   editing                             : Editing state             (boolean)
+*   toggleCompanyInformationEditing     : Toggle editing state      (func)
+*   handleChange                        : Input on change method    (func)
+*   submitUserChanges                   : Submit user change        (func)
+*/
+
 export const CompanyInformation = (props) => {
 
+    // Set default variable values
     let info = props.information,
         phone = info.phone,
         address = info.address,
         editing = props.editing;
 
+    // Prevent undefined error from running
     typeof info.phone === 'undefined' ? '' : phone = info.phone;
     typeof info.address === 'undefined' ? '' : address = info.address;
     
-    const submitChange = (e, name, value) => {
+    // On Change run function to update database
+    const submitChange = (e, key, value) => {
         e.preventDefault();
-        props.submitUserChanges(name, value);
+        props.submitUserChanges(key, value);
     }
 
+    // Function to render all inputs used under the Company information card
+    /*
+    *
+    *   icon: icon class for iconic
+    *   type: input type
+    *   placeholder: Placeholder text for empty inputs
+    *   name: value attr of inputs (name as Profile componenet state)
+    *   value: Input value
+    */
     const informationInputs = (icon, type, placeholder, name, value) => {
+        // Sets readonly class if editing is false
         let readonly = '';
         editing === false ? readonly = 'form-control form-control-plaintext' : readonly = 'form-control';
         
@@ -49,6 +71,7 @@ export const CompanyInformation = (props) => {
         return component;
     }
 
+    // Render function for component
     return (
         <div className="card">
             <div className="card-header">

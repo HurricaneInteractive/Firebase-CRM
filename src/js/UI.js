@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+// Loading screen
 export const Loading = (props) => {
     return (
         <div id="site-loading">
@@ -42,6 +43,7 @@ export const Loading = (props) => {
     )
 }
 
+// Admin area sidebar
 export const UserSidebar = (props) => {
     return (
         <ul className="sidebar-nav">

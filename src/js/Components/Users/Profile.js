@@ -11,6 +11,7 @@ class Profile extends Component {
 
     constructor() {
         super();
+        // Set default state
         this.state = {
             user: '',
             editingCompanyInformation: false,
@@ -20,28 +21,36 @@ class Profile extends Component {
             }
         }
 
+        // Bind events
         this.toggleCompanyInformationEditing = this.toggleCompanyInformationEditing.bind(this);
         this.handleCompanyInfoChange = this.handleCompanyInfoChange.bind(this);
         this.handleUpdatingUserMeta = this.handleUpdatingUserMeta.bind(this);
     }
 
+    // On Mount
     componentDidMount() {
+        // If there is no currentUser
+        // Fetch user record from the db
         if (this.props.currentUser === null) {
             firebase.auth().onAuthStateChanged((user) => {
                 this.props.getCurrentUser(user);
             })
         }
+        //Otherwise fetch record from the db using the currentUser uid
         else {
             const uid = this.props.currentUser.uid;
             const userRef = firebase.database().ref().child('users/' + uid);
+            // When value is found
             userRef.on('value', (snap) => {
-                // console.log('Snap: ', snap.val());
+                // Set default value of metadata
                 let user = snap.val();
                 let phone = '', address = '';
                 
+                // Remove undefined error & set metadata values to returned user object
                 typeof user.metadata.address === 'undefined' ? '' : address = user.metadata.address;
                 typeof user.metadata.phone === 'undefined' ? '' : phone = user.metadata.phone;
 
+                // Set state based on returned user metadata
                 this.setState({ 
                     user: snap.val(),
                     metadata: Object.assign(
@@ -57,23 +66,31 @@ class Profile extends Component {
         }
     }
 
+    // Stop listening to database changes
     componentWillUnmount() {
         firebase.database().ref().off();
     }
 
+    // Toggle company information editing state
     toggleCompanyInformationEditing(state) {
+        // Set the state to specified state
         this.setState({
             editingCompanyInformation: state
         });
         
+        // If editing is being canceled
+        // Set state to either old values or the new values that were updated
         if (state === false) {
+            // get state values
             let meta = this.state.metadata,
                 userMeta = this.state.user.metadata,
                 address = '', phone = '';
             
+            // Remove undefined error & set metadata values to returned user object
             typeof userMeta.address === 'undefined' ? '' : address = userMeta.address;
             typeof userMeta.phone === 'undefined' ? '' : phone = userMeta.phone;
 
+            // Set state based on returned user metadata
             this.setState({
                 metadata: Object.assign(
                     {},
@@ -87,6 +104,8 @@ class Profile extends Component {
         }
     }
 
+    // Event for when a user changes the value in the input
+    // Sets the state value to the input elem value
     handleCompanyInfoChange(e) {
         let type = e.target.name;
 
@@ -101,13 +120,15 @@ class Profile extends Component {
         });
     }
 
-    handleUpdatingUserMeta(name, value) {
+    // Passes information to update user metadata function in <App />
+    handleUpdatingUserMeta(key, value) {
         let uid = this.state.user.metadata.uid;
-        this.props.updateUserMetadata(uid, name, value);
+        this.props.updateUserMetadata(uid, key, value);
     }
 
     render() {
 
+        // sets the default variables for render
         let user = this.state.user,
             metadata = user.metadata,
             employees = user.employees,
@@ -117,12 +138,15 @@ class Profile extends Component {
                 phone: ''
             }
         
+        // If there is no user show Loading screen
         if (user === '' || user === null) {
             return (
                 <Loading />
             )
         }
         
+        // If there is a user
+        // Set company information to Component State
         if (user) {
             companyInformation = {
                 email: metadata.email,
@@ -131,6 +155,7 @@ class Profile extends Component {
             };
         }
 
+        // Display the Profile view
         return (
             <div className="user-inner">
                 <h2>Profile</h2>
