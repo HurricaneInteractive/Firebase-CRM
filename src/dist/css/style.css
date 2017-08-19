@@ -40,8 +40,7 @@
         color: white;
         position: absolute;
         left: 10px;
-        top: 50%;
-        transform: translateY(-50%); }
+        line-height: 45px; }
       .user main aside .sidebar-nav li a {
         padding: 0 15px 0 36px;
         line-height: 45px;
@@ -61,6 +60,19 @@
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee; }
+  .user main .user-content .user-inner .no-results {
+    position: relative; }
+    .user main .user-content .user-inner .no-results h4 {
+      margin-bottom: 20px; }
+    .user main .user-content .user-inner .no-results img {
+      max-width: 300px;
+      opacity: 0.2;
+      position: absolute;
+      top: 0;
+      left: calc(50% - 150px);
+      user-select: none; }
+  .user main .user-content .user-inner .new-customer-form .btn-outline-danger {
+    margin-left: 15px; }
 
 .card-header span {
   float: right;

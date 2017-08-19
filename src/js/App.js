@@ -9,6 +9,12 @@ import {
     Switch
 } from 'react-router-dom';
 
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
+
+// Create a history of your choosing (we're using a browser history in this case)
+const history = createHistory()
+
 import firebase from './Firebase/initialize';
 import { isAuthed, auth } from './Firebase/helpers';
 
@@ -20,6 +26,9 @@ import Register from './Components/Register';
 
 import Dashboard from './Components/Users/Dashboard';
 import Profile from './Components/Users/Profile';
+import Customers from './Components/Users/Customers';
+import NewCustomer from './Components/Users/Customers/NewCustomer';
+import { CustomerSingle } from './Components/Users/Customers/CustomerSingle';
 
 import { 
     Loading,
@@ -40,7 +49,8 @@ class App extends Component {
         // Initial state
         this.state = {
             userAuthed: false,
-            checkingAuth: true
+            checkingAuth: true,
+            user: ''
         }
 
         // bind events
@@ -54,13 +64,15 @@ class App extends Component {
             if (user) {
                 this.setState({
                     userAuthed: true,
-                    checkingAuth: false
+                    checkingAuth: false,
+                    user: user
                 });
             }
             else {
                 this.setState({
                     userAuthed: false,
-                    checkingAuth: false
+                    checkingAuth: false,
+                    user: user
                 });
             }
         });
@@ -85,6 +97,7 @@ class App extends Component {
     // render
     render() {
         const _this = this;
+        console.log(this.state.user);
 
         // Define the websites public routes
         const PublicRoutes = () => (
@@ -94,6 +107,7 @@ class App extends Component {
                 <Route path="/register" component={Register} />
                 <Redirect from="/dashboard" to="/login" />
                 <Redirect from="/profile" to="/login" />
+                <Redirect from="/customers" to="/login" />
             </Switch>
         )
 
@@ -113,6 +127,17 @@ class App extends Component {
                         updateUserMetadata={this.updateUserMetadataFunc}
                     /> 
                 )} />
+                <Route exact path="/customers" render={() => (
+                    <Customers 
+                        currentUser={this.props.user}
+                        getCurrentUser={this.setCurrentUser}
+                    />
+                )} />
+                <Route path="/customers/new" render={() => (
+                    <NewCustomer userId={this.state.user.uid} />
+                )} />
+                <Route path="/customer/:uid" component={CustomerSingle} />
+                <Redirect from="/" to="/dashboard" />
                 <Redirect from="/login" to="/dashboard" />
                 <Redirect from="/register" to="/dashboard" />
             </Switch>
