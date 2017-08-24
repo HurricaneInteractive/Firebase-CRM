@@ -1,6 +1,6 @@
 # React setup with webpack config file
 
-** NOTE **
+**NOTE**
 You will need to create a Firebase project and use the config code given to you. Rename the `initializeDummy.js` file to `initialize.js` and add your config code. File is located at `scr/Firebase`.
 
 ### Getting Started
