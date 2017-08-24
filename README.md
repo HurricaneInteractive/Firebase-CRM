@@ -1,46 +1,17 @@
 # React setup with webpack config file
 
+** NOTE **
+You will need to create a Firebase project and use the config code given to you. Rename the `initializeDummy.js` file to `initialize.js` and add your config code. File is located at `scr/Firebase`.
+
 ### Getting Started
 
-* Clone this repo
+* Fork & Clone this repo
 * Run `npm` or `yarn` to install all node modules.
 * Run `yarn start` to compile code and start a dev server
+* Register for an account through the website and start playing around with the features
 
 * * *
 
-### File Structure
+### About Project
 
-```
-|-- .gitignore
-|-- package.json
-|-- webpack.config.js
-|-- node_modules
-|-- src
-    |-- css
-        |-- style.scss
-    |-- dist
-        |-- css
-            |-- style.css
-        |-- app.min.js
-    |-- js
-        |-- App.js
-    |-- index.html
-```
-
-* * *
-
-### Available Commands
-
-* `yarn build-css` will compile all the scss into a .css file.
-* `yarn watch-css` will watch for any scss changes and re-compile the .css file.
-* `yarn dev` will start up the webpack dev server on <http://localhost:8080>.
-* `yarn start` will run webpack dev server & watch for scss changes.
-* `yarn prod` build the project for production. Uses Uglifyjs to minify the js file.
-
-* * *
-
-### CSS / SCSS
-
-This template is setup to use scss, which can be located in `src/css`. All styling can be added to the style.scss file however, you are also able to include stylesheets into the style.scss file to split up styling for different components. A good way is to create a new folder in the css folder called components. Create partial scss files, for example `_component.scss` and then include into the style.scss using `@import 'components/component';`.
-
-The css should be loaded into your Main Container Component. In this template it is being included in the App.js file using the line `const url = require('../dist/css/style.css');`. Webpack will automatically load this file into `<head>` of the DOM, using the `file-loader` loader.
+This project is built using Google's Firebase, React & Redux. It is a Customer Relationship Management tool, aimed at smaller businesses. There are a few features planned such as a messaging component & invoice generation.
