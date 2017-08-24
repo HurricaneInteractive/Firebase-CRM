@@ -27,15 +27,17 @@ class NewCustomer extends Component {
     createCustomerAccount(e) {
         e.preventDefault();
         const _this = this;
+        let customerReference = firebase.database().ref();
+        let key = customerReference.child(`users/${this.props.userId}/customers`).push().getKey();
         
         const newCustomer = {
             company_name: this.state.company_name,
             email: this.state.email,
             phone: this.state.phone,
-            address: this.state.address
+            address: this.state.address,
+            uid: key
         };
         
-        let customerReference = firebase.database().ref();
         // let key = customerReference.child(`users/${this.props.userId}/customers`).push().getKey();
         customerReference.child(`users/${this.props.userId}/customers`).push(newCustomer).then(function() {
             _this.setState({

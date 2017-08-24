@@ -108,3 +108,6 @@
   background-color: #fff; }
   .user .company-infomation .input-group input[readonly] {
     color: #212529; }
+
+table tr.bg-primary th {
+  color: white; }

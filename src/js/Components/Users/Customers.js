@@ -46,6 +46,8 @@ class Customers extends Component {
 
     renderTableRows(customers) {
         let customerRows = Object.keys(customers).map((key, index) => {
+            let uid = customers[key].uid;
+            console.log(customers[key]);
             return (
                 <tr key={index}>
                     <td scope="row">{index + 1}</td>
@@ -53,6 +55,7 @@ class Customers extends Component {
                     <td>{customers[key].email}</td>
                     <td>{customers[key].phone}</td>
                     <td>{customers[key].address}</td>
+                    <td><Link to={`/customer/${uid}`}>View</Link></td>
                 </tr>
             )
         });
@@ -94,12 +97,13 @@ class Customers extends Component {
                             <div className="col-sm-12">
                                 <table className="table table-striped table-bordered table-responsive">
                                     <thead>
-                                        <tr className="table-primary">
+                                        <tr className="bg-primary">
                                             <th>#</th>
                                             <th>Company Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
                                             <th>Address</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
